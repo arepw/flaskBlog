@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request
 from models import Post, Tag
 
 posts = Blueprint('posts', __name__, template_folder='templates')
@@ -6,7 +6,13 @@ posts = Blueprint('posts', __name__, template_folder='templates')
 
 @posts.route('/')
 def posts_list():
-    all_posts = Post.query.all()
+    search_query = request.args.get('q')
+    if search_query:
+        all_posts = Post.query.filter(Post.title.contains(search_query) |
+                                      Post.body.contains(search_query)
+                                      )
+    else:
+        all_posts = Post.query.all()
     return render_template('posts/posts.html', posts=all_posts)
 
 
