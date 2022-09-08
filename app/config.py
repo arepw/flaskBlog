@@ -9,3 +9,4 @@ class Config:
     # SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASE_DIR, 'data.db')
     # having issues with path as because alembic creates db inside app folder
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SECRET_KEY = 'YourVerylongveryrandomreallysecretkeyOSDJIj129iKA3NXM0x4b'
