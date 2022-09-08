@@ -32,8 +32,15 @@ def posts_list():
                                       Post.body.contains(search_query)
                                       )
     else:
-        all_posts = Post.query.order_by(Post.created.desc()).all()
-    return render_template('posts/posts.html', posts=all_posts)
+        all_posts = Post.query.order_by(Post.created.desc())
+
+    page = request.args.get('page')
+    if page and page.isdigit():
+        page = int(page)
+    else:
+        page = 1
+    pages = all_posts.paginate(page=page, per_page=1)
+    return render_template('posts/posts.html', posts=all_posts, pages=pages)
 
 
 @posts.route('/<slug>')
