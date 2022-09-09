@@ -10,3 +10,6 @@ class Config:
     # having issues with path as because alembic creates db inside app folder
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SECRET_KEY = 'YourVerylongveryrandomreallysecretkeyOSDJIj129iKA3NXM0x4b'
+    SECURITY_PASSWORD_SALT = 'YourVerylongrandomsecretaSaltkeyOSDJIj129iKA3NXM0x4b'
+    SECURITY_PASSWORD_HASH = 'sha512_crypt'
+    SECURITY_REGISTERABLE = True

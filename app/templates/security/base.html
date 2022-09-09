@@ -1,0 +1,70 @@
+{% block doc -%}
+<!DOCTYPE html>
+<html{% block html_attribs %}{% endblock html_attribs %}>
+  {%- block html %}
+  <head>
+    {%- block head %}
+    <title>{% block title %}{{ title|default }}{% endblock title %}</title>
+
+      {%- block metas %}
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      {%- endblock metas %}
+
+      {%- block head_scripts %}
+      {%- endblock head_scripts %}
+
+      {%- block styles %}
+        <style>
+          .fs-center { text-align: center }
+          .fs-important { font-size: larger; font-weight: bold }
+          .fs-gap { margin-top: 20px; }
+          .fs-div { margin: 4px; }
+          .fs-error-msg { color: darkred; }
+        </style>
+      {%- endblock styles %}
+    {%- endblock head %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+          crossorigin="anonymous">
+  </head>
+  <body{% block body_attribs %}{% endblock body_attribs %}>
+    {% block body -%}
+      {% block navbar %}
+      <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-5">
+  <!-- mb-5 - margin-bottom 5 -->
+  <a class="navbar-brand" href="{{ url_for('index') }}">Flask Blog</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="{{ url_for('posts.posts_list') }}">Blog <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('posts.post_create') }}">+ New Post</a>
+      </li>
+<!--      <li class="nav-item">-->
+<!--        <a class="nav-link disabled">Disabled</a>-->
+<!--      </li>-->
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search"
+             aria-label="Search" name="q">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+      {%- endblock navbar %}
+  <div class="container">
+      {% block content -%}
+      {%- endblock content %}
+  </div>
+      {% block scripts %}
+      {%- endblock scripts %}
+    {%- endblock body %}
+  </body>
+  {%- endblock html %}
+</html>
+{% endblock doc -%}

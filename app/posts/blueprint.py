@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for
+from flask_security import login_required
 from models import Post, Tag
 from app import db
 from .forms import PostForm
@@ -7,6 +8,7 @@ posts = Blueprint('posts', __name__, template_folder='templates')
 
 
 @posts.route('/create', methods=['POST', 'GET'])
+@login_required
 def post_create():
     form = PostForm()
     if request.method == 'POST':
@@ -56,7 +58,8 @@ def tag_details(slug):
 
 
 @posts.route('/<slug>/edit', methods=['POST', 'GET'])
-def post_update(slug):
+@login_required
+def post_update(slug):  # TODO: Show edit button in the view
     post = Post.query.filter(Post.slug == slug).first()
     if request.method == 'POST':
         form = PostForm(formdata=request.form, obj=post)
