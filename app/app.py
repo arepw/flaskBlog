@@ -48,7 +48,7 @@ class TagAdminView(AdminMixin, BaseModelView):
     form_columns = ['title', 'posts']
 
 
-admin = Admin(app, 'Flask Blog', url='/', index_view=HomeAdminView(name='Admin'))
+admin = Admin(app, 'Flask Blog', url='/', template_mode='bootstrap4', index_view=HomeAdminView(name='Admin'))
 admin.add_view(PostAdminView(Post, db.session))
 admin.add_view(TagAdminView(Tag, db.session))
 

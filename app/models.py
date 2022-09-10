@@ -51,7 +51,7 @@ class Tag(db.Model):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.slug = self.generate_slug()
+        self.generate_slug()
 
     def generate_slug(self):
         if self.title:
