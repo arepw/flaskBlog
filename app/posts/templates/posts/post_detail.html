@@ -9,4 +9,10 @@
   <div class="container">
     <p>{{ post.body }}</p>
   </div>
+  {% if edit %}
+    <a class="btn btn-primary mt-5````````````"
+       href="{{ url_for('posts.post_update', slug=post.slug) }}">
+      Edit
+    </a>
+  {% endif %}
 {% endblock %}

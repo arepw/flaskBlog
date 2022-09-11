@@ -13,7 +13,7 @@
       <li class="nav-item">
         <a class="nav-link active" href="{{ url_for('posts.post_create') }}">+ New Post</a>
       </li>
-        {% if current_user.has_role('admin')%}
+        {% if current_user.has_role('admin') %}
       <li class="nav-item">
         <a class="nav-link active" href="/admin">Admin</a>
       </li>
