@@ -35,7 +35,12 @@ class Post(db.Model):
         self.generate_slug()
 
     def generate_slug(self):
-        if self.title:
+        """
+        User can try to create a new post with the title == other post's slug.
+        This will cause integrity error. So, to prevent it from happening,
+        we must make sure that the DB don't already have Post with that slug.
+        """
+        if self.title and self.query.where(Post.slug == self.title).first() is None:
             self.slug = slugify(self.title)
         else:
             self.slug = str(int(time()))
