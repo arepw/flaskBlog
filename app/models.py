@@ -59,7 +59,8 @@ class Tag(db.Model):
         self.generate_slug()
 
     def generate_slug(self):
-        if self.title:
+        """Check out Post model"""
+        if self.title and self.query.where(Tag.slug == self.title).first() is None:
             self.slug = slugify(self.title)
         else:
             self.slug = str(int(time()))
@@ -71,12 +72,14 @@ class Tag(db.Model):
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(100), unique=True)
+    username = db.Column(db.String(120), unique=True, index=True)
     password = db.Column(db.String(255))
     active = db.Column(db.Boolean)
     fs_uniquifier = db.Column(db.String(255), unique=True)
     roles = db.relationship('Role', secondary=roles_users,
                             backref=db.backref('users')
                             )
+    confirmed_at = db.Column(db.DateTime(timezone=True))
 
 
 class Role(db.Model, RoleMixin):

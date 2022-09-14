@@ -5,6 +5,7 @@ from flask_migrate import Migrate
 from flask_admin import Admin, AdminIndexView
 from flask_admin.contrib.sqla import ModelView
 from flask_security import SQLAlchemyUserDatastore, Security, current_user
+from flask_mailman import Mail
 
 app = Flask(__name__)
 app.config.from_object(Config)  # Takes config class as an argument for configuration
@@ -13,6 +14,7 @@ db = SQLAlchemy(app)
 from models import *
 
 migrate = Migrate(app, db, compare_type=True)
+mail = Mail(app)
 
 
 # Flask-Admin

@@ -17,7 +17,7 @@ def init_and_create_admin():
     db.session.commit()
     user_datastore.add_role_to_user(admin_user, role)
     db.session.commit()
-    return print('Success!\nFor login use email "admin@test.com" and your password.')
+    return print('Success!\nFor login use email "admin@root.com" and your password.')
 
 
 def create_demo_post():
