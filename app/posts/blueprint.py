@@ -64,7 +64,7 @@ def tag_details(slug):
 @posts.route('/<slug>/edit', methods=['POST', 'GET'])
 @login_required
 @roles_accepted('admin', 'editor')
-def post_update(slug):  # TODO: Show edit button in the view
+def post_update(slug):
     post = Post.query.filter(Post.slug == slug).first()
     if request.method == 'POST':
         form = PostForm(formdata=request.form, obj=post)

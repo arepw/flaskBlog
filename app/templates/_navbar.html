@@ -13,12 +13,34 @@
       <li class="nav-item">
         <a class="nav-link active" href="{{ url_for('posts.post_create') }}">+ New Post</a>
       </li>
-        {% if current_user.has_role('admin') %}
+      {% if current_user.has_role('admin') %}
       <li class="nav-item">
         <a class="nav-link active" href="/admin">Admin</a>
       </li>
-        {% endif %}
+      {% endif %}
     </ul>
+    {% if not current_user.is_authenticated %}
+    <div class="btn-group mr-2">
+      <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        Login
+      </button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="{{ url_for_security('login') }}">Login</a>
+        <a class="dropdown-item" href="{{ url_for_security('register') }}">Register</a>
+      </div>
+    </div>
+    {% else %}
+    <div class="btn-group mr-2">
+      <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        {{ current_user.username }}
+      </button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">Profile</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="{{ url_for_security('logout') }}">Logout</a>
+      </div>
+    </div>
+    {% endif %}
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search"
              aria-label="Search" name="q">

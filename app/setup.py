@@ -8,7 +8,9 @@ def init_and_create_admin():
     print('Database successfully initialised.'
           '\nEnter password for admin user (email = admin@root.com)')
     password = input()
-    admin_user = user_datastore.create_user(email='admin@root.com', password=password)
+    admin_user = user_datastore.create_user(email='admin@root.com',
+                                            username='admin',
+                                            password=password)
     db.session.add(admin_user)
     db.session.commit()
     admin_user = User.query.first()

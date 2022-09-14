@@ -17,7 +17,16 @@ class Config:
     SECURITY_USER_IDENTITY_ATTRIBUTES = [{"username": {"mapper": uia_username_mapper, "case_insensitive": False}},
                                         {"email": {"mapper": uia_email_mapper, "case_insensitive": True}}]
     SECURITY_USERNAME_ENABLE = True
+    SECURITY_USERNAME_REQUIRED = True
     SECURITY_CONFIRMABLE = True
+    """
+    I don't know why, but by default after registration users are redirected
+    to "/", although SECURITY_CONFIRMABLE equals True, so user must confirm
+    registration via link. Flask-Security shows message about it BUT it is in
+    the "register" view. So I specified SECURITY_POST_REGISTER_VIEW to "/register"
+    for better user experience.
+    """
+    SECURITY_POST_REGISTER_VIEW = '/register'
     # MAIL CONFIG
     MAIL_SERVER = 'smtp.gmail.com'
     MAIL_PORT = 465
