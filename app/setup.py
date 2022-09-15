@@ -6,11 +6,14 @@ from models import User, Post, Tag
 def init_and_create_admin():
     db.create_all()
     print('Database successfully initialised.'
-          '\nEnter password for admin user (email = admin@root.com)')
+          '\nEnter username for admin user (email = admin@root.com)')
+    username = input()
+    print('Enter password for admin user')
     password = input()
     admin_user = user_datastore.create_user(email='admin@root.com',
-                                            username='admin',
-                                            password=password)
+                                            username=username,
+                                            password=password,
+                                            confirmed_at=datetime.datetime.now())
     db.session.add(admin_user)
     db.session.commit()
     admin_user = User.query.first()
