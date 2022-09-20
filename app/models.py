@@ -2,6 +2,7 @@ from app import db
 from time import time
 import re
 from flask_security import UserMixin, RoleMixin
+from textwrap import shorten
 
 
 def slugify(s):
@@ -24,6 +25,7 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(140))
     slug = db.Column(db.String(140), unique=True)
+    short = db.Column(db.String(100))
     body = db.Column(db.Text)
     created = db.Column(db.DateTime(timezone=True), server_default=db.func.now())
     tags = db.relationship('Tag', secondary=post_tags,
@@ -33,6 +35,7 @@ class Post(db.Model):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.generate_slug()
+        self.generate_short()
 
     def generate_slug(self):
         """
@@ -44,6 +47,9 @@ class Post(db.Model):
             self.slug = slugify(self.title)
         else:
             self.slug = str(int(time()))
+
+    def generate_short(self):
+        self.short = shorten(self.body, width=100, placeholder="...")
 
     def __repr__(self):
         return f'<Post id: {self.id}, title: {self.title}>'

@@ -6,7 +6,7 @@
         <h5 class="card-title"><a href="{{ url_for('posts.post_details', slug=post.slug) }}">
           {{ post.title }}
         </a></h5>
-        <p class="card-text">{{ post.body }}</p>
+        <p class="card-text">{{ post.short }}</p>
         <a href="{{ url_for('posts.post_details', slug=post.slug) }}"
            class="btn btn-primary">
           Read more

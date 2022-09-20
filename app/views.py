@@ -9,3 +9,8 @@ def index():
     if search_query:
         return redirect(url_for('posts.posts_list', q=search_query))
     return render_template('index.html')
+
+
+@app.get('/profile')
+def user_profile():
+    return render_template('profile.html')

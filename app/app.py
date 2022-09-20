@@ -39,6 +39,7 @@ class BaseModelView(ModelView):
     def on_model_change(self, form, model, is_created):
         if is_created:
             model.generate_slug()
+        model.generate_short()
         return super().on_model_change(form, model, is_created)
 
 
