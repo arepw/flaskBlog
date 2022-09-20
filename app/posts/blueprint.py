@@ -48,7 +48,7 @@ def posts_list():
 
 @posts.route('/<slug>')
 def post_details(slug):
-    post = Post.query.filter(Post.slug == slug).first()
+    post = Post.query.filter(Post.slug == slug).first_or_404()
     # If user have at least one of the roles return True to show "Edit" button.
     return render_template('posts/post_detail.html', post=post,
                            edit=any(map(current_user.has_role, ('admin', 'editor')))
@@ -57,7 +57,7 @@ def post_details(slug):
 
 @posts.route('/tags/<slug>')
 def tag_details(slug):
-    tag = Tag.query.filter(Tag.slug == slug).first()
+    tag = Tag.query.filter(Tag.slug == slug).first_or_404()
     return render_template('posts/tag_detail.html', tag=tag)
 
 
@@ -65,7 +65,7 @@ def tag_details(slug):
 @login_required
 @roles_accepted('admin', 'editor')
 def post_update(slug):
-    post = Post.query.filter(Post.slug == slug).first()
+    post = Post.query.filter(Post.slug == slug).first_or_404()
     if request.method == 'POST':
         form = PostForm(formdata=request.form, obj=post)
         form.populate_obj(post)
