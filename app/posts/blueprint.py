@@ -1,3 +1,4 @@
+import sqlalchemy.exc
 from flask import Blueprint, render_template, request, redirect, url_for
 from flask_security import login_required, roles_accepted, current_user
 from models import Post, Tag
@@ -20,8 +21,9 @@ def post_create():
             post = Post(title=title, body=body)
             db.session.add(post)
             db.session.commit()
-        except:  # TODO: Use "except" properly
+        except sqlalchemy.exc.SQLAlchemyError:  # awful except block
             print('Something went completely wrong')
+            return redirect(url_for('index'), 403)
         return redirect(url_for('posts.post_details', slug=post.slug))
 
     return render_template('posts/post_create.html', form=form)

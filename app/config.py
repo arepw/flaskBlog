@@ -19,6 +19,10 @@ class Config:
     SECURITY_USERNAME_ENABLE = True
     SECURITY_USERNAME_REQUIRED = True
     SECURITY_CONFIRMABLE = True
+    SECURITY_CHANGEABLE = True
+    SECURITY_POST_CHANGE_VIEW = '/profile'
+    SECURITY_RECOVERABLE = True
+    SECURITY_RESET_URL = '/recover'
     """
     I don't know why, but by default after registration users are redirected
     to "/", although SECURITY_CONFIRMABLE equals True, so user must confirm
