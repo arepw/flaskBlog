@@ -29,7 +29,7 @@ def post_create():
     return render_template('posts/post_create.html', form=form)
 
 
-@posts.route('/')
+@posts.get('/')
 def posts_list():
     search_query = request.args.get('q')
     if search_query:
@@ -48,7 +48,7 @@ def posts_list():
     return render_template('posts/posts.html', posts=all_posts, pages=pages)
 
 
-@posts.route('/<slug>')
+@posts.get('/<slug>')
 def post_details(slug):
     post = Post.query.filter(Post.slug == slug).first_or_404()
     # If user have at least one of the roles return True to show "Edit" button.
@@ -57,7 +57,7 @@ def post_details(slug):
                            )
 
 
-@posts.route('/tags/<slug>')
+@posts.get('/tags/<slug>')
 def tag_details(slug):
     tag = Tag.query.filter(Tag.slug == slug).first_or_404()
     return render_template('posts/tag_detail.html', tag=tag)
