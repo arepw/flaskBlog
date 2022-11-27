@@ -36,6 +36,8 @@ class HomeAdminView(AdminMixin, AdminIndexView):
 
 
 class BaseModelView(ModelView):
+    column_default_sort = ('id', True)
+
     def on_model_change(self, form, model, is_created):
         if is_created:
             model.generate_slug()
