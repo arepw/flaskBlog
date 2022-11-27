@@ -39,10 +39,11 @@ class Post(db.Model):
 
     def generate_slug(self):
         """
-        User can try to create a new post with the title == other post's slug.
-        This will cause integrity error. So, to prevent it from happening,
-        we must make sure that the DB don't already have Post with that slug.
+        Makes the post title usable for url
         """
+        # User can try to create a new post with the title == other post's slug.
+        # This will cause integrity error. So, to prevent it from happening,
+        # we must make sure that the DB don't already have Post with that slug.
         if self.title and self.query.where(Post.slug == self.title).first() is None:
             self.slug = slugify(self.title)
         else:
@@ -65,7 +66,9 @@ class Tag(db.Model):
         self.generate_slug()
 
     def generate_slug(self):
-        """Check out Post model"""
+        """
+        Makes the tag title usable for url
+        """
         if self.title and self.query.where(Tag.slug == self.title).first() is None:
             self.slug = slugify(self.title)
         else:
@@ -73,6 +76,12 @@ class Tag(db.Model):
 
     def __repr__(self):
         return f'<Tag id: {self.id}, title: {self.title}>'
+
+
+class Upload(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    filename = db.Column(db.String(200))
+    owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 
 class User(db.Model, UserMixin):

@@ -2,7 +2,7 @@ import os
 from flask_security import uia_username_mapper, uia_email_mapper
 
 BASE_DIR = os.path.dirname(os.path.abspath(__name__))
-
+UPLOAD_FOLDER = 'app/static/uploads/'
 
 class Config:
     DEBUG = True
@@ -11,6 +11,8 @@ class Config:
     # having issues with path as because alembic creates db inside app folder
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SECRET_KEY = os.environ.get('SECRET_KEY')
+    UPLOAD_FOLDER = UPLOAD_FOLDER
+    MAX_CONTENT_LENGTH = 16 * 1500 * 1500
     SECURITY_PASSWORD_SALT = os.environ.get('SECURITY_PASSWORD_SALT')
     SECURITY_PASSWORD_HASH = 'sha512_crypt'
     SECURITY_REGISTERABLE = True
